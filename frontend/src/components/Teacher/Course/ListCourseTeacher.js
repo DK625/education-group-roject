@@ -43,7 +43,7 @@ const CourseCard = ({
                 <div style={{ position: 'relative', height: 200 }}>
                     <img
                         alt={course.title}
-                        src={course.image ? `http://127.0.0.1:8000${course.image}` : 'https://via.placeholder.com/300x150'}
+                        src={course.image ? `http://103.56.158.135:8000${course.image}` : 'https://via.placeholder.com/300x150'}
                         style={{
                             width: '100%',
                             height: '100%',

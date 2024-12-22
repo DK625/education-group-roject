@@ -16,15 +16,15 @@ const QuestionModal = ({ visible, onClose, courses, onSuccess }) => {
             message.error('Bạn chưa đăng nhập!');
             return;
         }
-    
+
         try {
-            const response = await axios.get(`http://127.0.0.1:5000/api/quiz/get-by-course/${courseId}/`, {
+            const response = await axios.get(`http://103.56.158.135:5000/api/quiz/get-by-course/${courseId}/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-    
-          
+
+
 
             if (response.data && Array.isArray(response.data.data)) {
                 const quizzesData = response.data.data;
@@ -40,8 +40,8 @@ const QuestionModal = ({ visible, onClose, courses, onSuccess }) => {
             setQuizzes([]); // Đặt lại danh sách quizzes thành mảng rỗng khi có lỗi
         }
     };
-    
-    
+
+
     // Xử lý khi thay đổi khóa học
     const handleCourseChange = (courseId) => {
         questionForm.setFieldsValue({ quiz_id: null }); // Reset quiz khi thay đổi khóa học
@@ -68,7 +68,7 @@ const QuestionModal = ({ visible, onClose, courses, onSuccess }) => {
 
         try {
             // Endpoint tạo câu hỏi mới
-            await axios.post(`http://127.0.0.1:5000/api/quiz/${quiz_id}/questions/`, formData, {
+            await axios.post(`http://103.56.158.135:5000/api/quiz/${quiz_id}/questions/`, formData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                     'Content-Type': 'multipart/form-data',

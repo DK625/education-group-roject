@@ -25,14 +25,14 @@ const QuizDetail = () => {
   const fetchQuestions = async () => {
     try {
       const token = localStorage.getItem('accessToken');
-      const response = await axios.get('http://127.0.0.1:5000/api/get-all-quiz/', {
+      const response = await axios.get('http://103.56.158.135:5000/api/get-all-quiz/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
       const foundQuiz = response.data.find(quiz => quiz.id === quiz_id);
       if (foundQuiz) {
-        foundQuiz.image = `http://127.0.0.1:5000${foundQuiz.image}`
+        foundQuiz.image = `http://103.56.158.135:5000${foundQuiz.image}`
         setQuiz(foundQuiz);
       }
 
@@ -80,7 +80,7 @@ const QuizDetail = () => {
       // API call để thêm/sửa câu hỏi
       try {
         const token = localStorage.getItem('accessToken');
-        const response = await axios.put(`http://127.0.0.1:5000/api/questions/${editingQuestion.id}/`,
+        const response = await axios.put(`http://103.56.158.135:5000/api/questions/${editingQuestion.id}/`,
           payload,
           { headers: { Authorization: `Bearer ${token}` } }
         );
@@ -108,7 +108,7 @@ const QuizDetail = () => {
         try {
           // API call để xóa câu hỏi
           const token = localStorage.getItem('accessToken');
-          const response = await axios.delete(`http://127.0.0.1:5000/api/questions/${questionId}/`, {
+          const response = await axios.delete(`http://103.56.158.135:5000/api/questions/${questionId}/`, {
             headers: { Authorization: `Bearer ${token}` }
           });
           message.success(response.data.message || 'Câu hỏi đã được xóa thành công!');

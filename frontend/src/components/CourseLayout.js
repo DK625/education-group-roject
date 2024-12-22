@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Layout, Row, Col, Pagination } from 'antd';
 import { useLocation } from 'react-router-dom';
-import Sidebar from './Sidebar'; 
+import Sidebar from './Sidebar';
 import Navbar from './NavBar';
 import CourseCard from './CourseCard'; // Import the CourseCard component
 import './CourseLayout.css';
@@ -20,7 +20,7 @@ const CourseLayout = () => {
     const fetchCourses = async () => {
       try {
         const token = localStorage.getItem("accessToken");
-        const response = await fetch('http://127.0.0.1:8000/api/courses/', { headers: { Authorization: `Bearer ${token}` } });
+        const response = await fetch('http://103.56.158.135:8000/api/courses/', { headers: { Authorization: `Bearer ${token}` } });
         const data = await response.json();
 
         setCourses(data);
@@ -35,9 +35,9 @@ const CourseLayout = () => {
 
   useEffect(() => {
     if (location.state?.searchResults) {
-        setCourses(location.state.searchResults); // Hiển thị kết quả tìm kiếm
+      setCourses(location.state.searchResults); // Hiển thị kết quả tìm kiếm
     } else {
-        setCourses(originalCourses); // Hiển thị danh sách khóa học ban đầu
+      setCourses(originalCourses); // Hiển thị danh sách khóa học ban đầu
     }
   }, [location.state, originalCourses]);
 
@@ -56,7 +56,7 @@ const CourseLayout = () => {
       <Sidebar style={{ position: 'fixed', height: '100vh' }} />
 
       <Layout>
-        <Navbar  courses={originalCourses} style={{ position: 'fixed', width: '100%', zIndex: 1 }} />
+        <Navbar courses={originalCourses} style={{ position: 'fixed', width: '100%', zIndex: 1 }} />
 
         <Content className="content-course-layout">
           <div className="content-card-parent">
@@ -70,7 +70,7 @@ const CourseLayout = () => {
                     time={`Duration: ${course.duration}`}
                     teacher={course.instructor}
                     participants={`Level: ${course.level}`} // Using level to show as participants
-                    imageUrl={course.image ? `http://127.0.0.1:8000${course.image}` : 'https://via.placeholder.com/300x150'}
+                    imageUrl={course.image ? `http://103.56.158.135:8000${course.image}` : 'https://via.placeholder.com/300x150'}
                     is_registered={course.is_registered}
                   />
                 </Col>

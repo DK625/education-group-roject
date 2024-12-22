@@ -16,14 +16,14 @@ const DetailCourse = () => {
   const [activeKeys, setActiveKeys] = useState([]);
   const [isExpandedAll, setIsExpandedAll] = useState(false);
   const [course, setCourse] = useState(null);
-  const [courseId, setCourseId] = useState(""); 
+  const [courseId, setCourseId] = useState("");
   const [message, setMessage] = useState("");
   const [isRegistered, setIsRegistered] = useState(false);
   const { id } = useParams();
 
   // Fetch course data from API
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/courses/${id}/`)
+    fetch(`http://103.56.158.135:8000/api/courses/${id}/`)
       .then(response => response.json())
       .then(data => {
         setCourse(data);
@@ -42,7 +42,7 @@ const DetailCourse = () => {
     }
 
     try {
-      const response = await axios.get(`http://127.0.0.1:8000/api/check-registration/${courseId}/`, {
+      const response = await axios.get(`http://103.56.158.135:8000/api/check-registration/${courseId}/`, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
@@ -60,70 +60,70 @@ const DetailCourse = () => {
   const handleRegister = async () => {
     const token = localStorage.getItem("accessToken");
     if (!token) {
-        setMessage("Vui lòng đăng nhập.");
-        return;
+      setMessage("Vui lòng đăng nhập.");
+      return;
     }
 
     if (!courseId) {
-        setMessage("Khóa học không hợp lệ.");
-        return;
+      setMessage("Khóa học không hợp lệ.");
+      return;
     }
 
     try {
-        const response = await axios.post(
-            "http://127.0.0.1:8000/api/register-course/",
-            { course: courseId },
-            { headers: { Authorization: `Bearer ${token}` } }
-        );
+      const response = await axios.post(
+        "http://103.56.158.135:8000/api/register-course/",
+        { course: courseId },
+        { headers: { Authorization: `Bearer ${token}` } }
+      );
 
-        if (response.status === 201) {
-            setMessage("Đăng ký thành công!");
-            setIsRegistered(true);  // Cập nhật trạng thái đăng ký
-        } else {
-            setMessage("Có lỗi xảy ra. Vui lòng thử lại sau.");
-        }
+      if (response.status === 201) {
+        setMessage("Đăng ký thành công!");
+        setIsRegistered(true);  // Cập nhật trạng thái đăng ký
+      } else {
+        setMessage("Có lỗi xảy ra. Vui lòng thử lại sau.");
+      }
     } catch (error) {
-        if (error.response) {
-            const errorMessage = error.response.data.detail || "Đăng ký thất bại.";
-            setMessage(errorMessage);
-        } else {
-            setMessage("Đăng ký thất bại. Vui lòng kiểm tra kết nối mạng.");
-        }
+      if (error.response) {
+        const errorMessage = error.response.data.detail || "Đăng ký thất bại.";
+        setMessage(errorMessage);
+      } else {
+        setMessage("Đăng ký thất bại. Vui lòng kiểm tra kết nối mạng.");
+      }
     }
   };
 
   const handleExpandAll = () => {
     if (isExpandedAll) {
-      setActiveKeys([]); 
+      setActiveKeys([]);
     } else {
-      setActiveKeys(course.chapters.map((_, index) => index.toString())); 
+      setActiveKeys(course.chapters.map((_, index) => index.toString()));
     }
     setIsExpandedAll(!isExpandedAll);
   };
 
   const convertDurationToHours = (duration) => {
-  if (!duration) return "0h 0m 0s";
+    if (!duration) return "0h 0m 0s";
 
-  let hours, minutes, seconds;
+    let hours, minutes, seconds;
 
-  if (duration.includes(" ")) {
-    // Format: "X days HH:MM:SS"
-    const [days, time] = duration.split(" ");
-    [hours, minutes, seconds] = time.split(":");
-    hours = parseInt(days) * 24 + parseInt(hours);
-  } else {
-    // Format: "HH:MM:SS"
-    [hours, minutes, seconds] = duration.split(":");
-  }
+    if (duration.includes(" ")) {
+      // Format: "X days HH:MM:SS"
+      const [days, time] = duration.split(" ");
+      [hours, minutes, seconds] = time.split(":");
+      hours = parseInt(days) * 24 + parseInt(hours);
+    } else {
+      // Format: "HH:MM:SS"
+      [hours, minutes, seconds] = duration.split(":");
+    }
 
-  return `${parseInt(hours)}h ${parseInt(minutes)}m ${parseInt(seconds)}s`;
-};
+    return `${parseInt(hours)}h ${parseInt(minutes)}m ${parseInt(seconds)}s`;
+  };
 
   if (!course) {
     return <div>Loading...</div>;
   }
 
-  const imageUrl = `http://127.0.0.1:8000${course.image}`;
+  const imageUrl = `http://103.56.158.135:8000${course.image}`;
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -144,11 +144,11 @@ const DetailCourse = () => {
                   <p><strong>Duration:</strong> {convertDurationToHours(course.duration)}</p>
                   <p><strong>Instructor:</strong> {course.instructor}</p>
 
-                  <Button 
-                    type="primary" 
-                    style={{ marginTop: '16px', backgroundColor: isRegistered ? 'gray' : '', color:'black' }} 
-                    onClick={handleRegister} 
-                    disabled={isRegistered} 
+                  <Button
+                    type="primary"
+                    style={{ marginTop: '16px', backgroundColor: isRegistered ? 'gray' : '', color: 'black' }}
+                    onClick={handleRegister}
+                    disabled={isRegistered}
                   >
                     {isRegistered ? 'Đã đăng ký' : 'Đăng ký ngay'}
                   </Button>
@@ -196,13 +196,13 @@ const DetailCourse = () => {
               </Col>
             </Row>
 
-          <Row>
-            <Col span={24}>
-              <CourseReviews courseId={courseId} />
-            </Col>
-          </Row>
+            <Row>
+              <Col span={24}>
+                <CourseReviews courseId={courseId} />
+              </Col>
+            </Row>
 
-           
+
           </div>
         </Content>
 

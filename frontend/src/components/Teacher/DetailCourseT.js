@@ -19,7 +19,7 @@ const DetailCourseT = () => {
 
   // Fetch course data from API
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/api/courses/${id}/`)
+    fetch(`http://103.56.158.135:8000/api/courses/${id}/`)
       .then(response => response.json())
       .then(data => {
         setCourse(data);
@@ -46,7 +46,7 @@ const DetailCourseT = () => {
   // Handle Update Chapter
   const handleUpdateChapter = (values) => {
     const token = localStorage.getItem('accessToken');
-    fetch(`http://127.0.0.1:8000/api/update-delete-chapter/${currentChapter.id}/`, {
+    fetch(`http://103.56.158.135:8000/api/update-delete-chapter/${currentChapter.id}/`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -74,7 +74,7 @@ const DetailCourseT = () => {
   // Handle Delete Chapter
   const handleDeleteChapter = (chapterId) => {
     const token = localStorage.getItem('accessToken');
-    fetch(`http://127.0.0.1:8000/api/update-delete-chapter/${chapterId}/`, {
+    fetch(`http://103.56.158.135:8000/api/update-delete-chapter/${chapterId}/`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -96,7 +96,7 @@ const DetailCourseT = () => {
   // Handle Update Lesson
   // const handleUpdateLesson = (values) => {
   //   const token = localStorage.getItem('accessToken');
-  //   fetch(`http://127.0.0.1:8000/api/update-delete-lesson/${currentLesson.id}/`, {
+  //   fetch(`http://103.56.158.135:8000/api/update-delete-lesson/${currentLesson.id}/`, {
   //     method: 'PUT',
   //     headers: {
   //       'Authorization': `Bearer ${token}`,
@@ -130,7 +130,7 @@ const DetailCourseT = () => {
 
   const handleUpdateLesson = (values) => {
     const token = localStorage.getItem('accessToken');
-    fetch(`http://127.0.0.1:8000/api/update-delete-lesson/${currentLesson.id}/`, {
+    fetch(`http://103.56.158.135:8000/api/update-delete-lesson/${currentLesson.id}/`, {
       method: 'PUT',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -164,7 +164,7 @@ const DetailCourseT = () => {
   // Handle Delete Lesson
   const handleDeleteLesson = (lessonId) => {
     const token = localStorage.getItem('accessToken');
-    fetch(`http://127.0.0.1:8000/api/update-delete-lesson/${lessonId}/`, {
+    fetch(`http://103.56.158.135:8000/api/update-delete-lesson/${lessonId}/`, {
       method: 'DELETE',
       headers: {
         'Authorization': `Bearer ${token}`,
@@ -213,7 +213,7 @@ const DetailCourseT = () => {
     return <div>Loading...</div>;
   }
 
-  const imageUrl = `http://127.0.0.1:8000${course.image}`;
+  const imageUrl = `http://103.56.158.135:8000${course.image}`;
 
   return (
     <Layout style={{ minHeight: '100vh' }}>

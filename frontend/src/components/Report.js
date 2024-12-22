@@ -19,12 +19,12 @@ const Report = () => {
 
     const listCourseRegisted = useCallback(async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/list-register-course/', {
+            const response = await axios.get('http://103.56.158.135:8000/api/list-register-course/', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
             });
-           
+
             setCourseIDs(response.data.registered_course_ids);
         } catch (error) {
             console.error('Error fetching registered courses:', error);
@@ -35,7 +35,7 @@ const Report = () => {
         try {
             const courseDetails = await Promise.all(
                 courseIDs.map(async (id) => {
-                    const response = await axios.get(`http://127.0.0.1:8000/api/courses/${id}/`);
+                    const response = await axios.get(`http://103.56.158.135:8000/api/courses/${id}/`);
                     return response.data;
                 })
             );
@@ -64,7 +64,7 @@ const Report = () => {
                 issue: values.issues || '',
                 plan: values.plan,
             };
-            await axios.post('http://127.0.0.1:8080/api/add-report/', reportData, {
+            await axios.post('http://103.56.158.135:8080/api/add-report/', reportData, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },

@@ -36,7 +36,7 @@ const Course = () => {
       }
 
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/all-courses/', {
+        const response = await axios.get('http://103.56.158.135:8000/api/all-courses/', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -97,7 +97,7 @@ const Course = () => {
 
     try {
       const response = await axios.post(
-        'http://127.0.0.1:8000/api/add-courses/',  // API endpoint Django
+        'http://103.56.158.135:8000/api/add-courses/',  // API endpoint Django
         formData,
         {
           headers: {
@@ -146,32 +146,32 @@ const Course = () => {
     }
     else if (selectedCourse.image) {
       try {
-          // Chuẩn hóa đường dẫn URL cho hình ảnh
-          const imageUrl = 'http://127.0.0.1:8000' + selectedCourse.image;
-          
-          // Sử dụng imageUrl để fetch
-          const response = await fetch(imageUrl);
-          const blob = await response.blob();
-  
-          // Get the file extension based on the MIME type of the blob
-          const mimeType = blob.type.split('/')[1]; // Get the file type (e.g., 'jpeg', 'png')
-          const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']; // List of supported extensions
-          const extension = validExtensions.includes(mimeType) ? mimeType : 'jpg'; // Default to 'jpg' if invalid extension
-  
-          // Create the image file using the correct extension
-          const imaFile = new File([blob], `course-image.${extension}`, { type: blob.type });
-          formData.append('image', imaFile); // Append the image as binary data
+        // Chuẩn hóa đường dẫn URL cho hình ảnh
+        const imageUrl = 'http://103.56.158.135:8000' + selectedCourse.image;
+
+        // Sử dụng imageUrl để fetch
+        const response = await fetch(imageUrl);
+        const blob = await response.blob();
+
+        // Get the file extension based on the MIME type of the blob
+        const mimeType = blob.type.split('/')[1]; // Get the file type (e.g., 'jpeg', 'png')
+        const validExtensions = ['jpg', 'jpeg', 'png', 'gif', 'bmp']; // List of supported extensions
+        const extension = validExtensions.includes(mimeType) ? mimeType : 'jpg'; // Default to 'jpg' if invalid extension
+
+        // Create the image file using the correct extension
+        const imaFile = new File([blob], `course-image.${extension}`, { type: blob.type });
+        formData.append('image', imaFile); // Append the image as binary data
       } catch (error) {
-          message.error('Không thể tải ảnh cũ');
+        message.error('Không thể tải ảnh cũ');
       }
-   }
-  
+    }
+
 
     console.log(selectedCourse)
 
     try {
       const response = await axios.put(
-        `http://127.0.0.1:8000/api/update-delete/${selectedCourse.id}/`,
+        `http://103.56.158.135:8000/api/update-delete/${selectedCourse.id}/`,
         formData,
         {
           headers: {
@@ -184,7 +184,7 @@ const Course = () => {
       message.success(response.data.message || 'Cập nhật khóa học thành công!');
       setEditCourseModalVisible(false);
       setImageFile(null);
-      const responses = await axios.get('http://127.0.0.1:8000/api/all-courses/', {
+      const responses = await axios.get('http://103.56.158.135:8000/api/all-courses/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -209,7 +209,7 @@ const Course = () => {
 
     try {
       const response = await axios.delete(
-        `http://127.0.0.1:8000/api/update-delete/${courseId}/`,
+        `http://103.56.158.135:8000/api/update-delete/${courseId}/`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -253,7 +253,7 @@ const Course = () => {
 
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/courses/${values.courseId}/chapters/`,
+        `http://103.56.158.135:8000/api/courses/${values.courseId}/chapters/`,
         data,
         {
           headers: {
@@ -280,7 +280,7 @@ const Course = () => {
 
     try {
       const response = await axios.get(
-        `http://127.0.0.1:8000/api/all-chapters/${courseId}/`,
+        `http://103.56.158.135:8000/api/all-chapters/${courseId}/`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -311,7 +311,7 @@ const Course = () => {
 
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/chapters/${values.chapterId}/lessons/`,
+        `http://103.56.158.135:8000/api/chapters/${values.chapterId}/lessons/`,
         data,
         {
           headers: { Authorization: `Bearer ${token}` },
@@ -620,7 +620,7 @@ const Course = () => {
             {editCourseForm.getFieldValue('image') && (
               <div style={{ marginTop: 10 }}>
                 <img
-                  src={`http://127.0.0.1:8000${editCourseForm.getFieldValue('image')}`}
+                  src={`http://103.56.158.135:8000${editCourseForm.getFieldValue('image')}`}
                   alt="Preview"
                   style={{ width: '100%', maxWidth: 200, height: 'auto' }}
                 />

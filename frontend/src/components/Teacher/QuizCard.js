@@ -53,7 +53,7 @@ const QuizCard = ({ quiz, updateQuizzes }) => {
     if (uploadedFile) {
       formData.delete('image');
       formData.append('image', uploadedFile); // If a new image is uploaded
-    } 
+    }
     else if (quiz.image) {
       try {
         // Fetch the existing image URL
@@ -76,7 +76,7 @@ const QuizCard = ({ quiz, updateQuizzes }) => {
     try {
       const token = localStorage.getItem('accessToken');
       const response = await axios.put(
-        `http://127.0.0.1:5000/api/quiz/update-quiz/${quiz.id}/`,
+        `http://103.56.158.135:5000/api/quiz/update-quiz/${quiz.id}/`,
         formData,
         {
           headers: {
@@ -114,7 +114,7 @@ const QuizCard = ({ quiz, updateQuizzes }) => {
   const handleDeleteQuiz = async () => {
     const token = localStorage.getItem('accessToken');
     try {
-      const response = await axios.delete(`http://127.0.0.1:5000/api/quiz/${quiz.id}/delete/`, {
+      const response = await axios.delete(`http://103.56.158.135:5000/api/quiz/${quiz.id}/delete/`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       message.success(response.data.message || 'Quiz đã được xóa thành công!');

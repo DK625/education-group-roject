@@ -43,7 +43,7 @@ const ChatBot = () => {
             formData.append('msg', inputValue);
 
             console.log('formData: ', formData)
-            const response = await fetch('http://127.0.0.1:5005/get_response', {
+            const response = await fetch('http://103.56.158.135:5005/get_response', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/x-www-form-urlencoded; charset=UTF-8',

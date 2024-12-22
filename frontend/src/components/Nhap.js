@@ -78,7 +78,7 @@ const AuthForm = () => {
     }
 
     // Chọn endpoint dựa trên vai trò
-    const endpoint = userStu.role === 'lecturer' ? 'http://127.0.0.1:8000/api/register-teacher/' : 'http://127.0.0.1:8000/api/register-student/';
+    const endpoint = userStu.role === 'lecturer' ? 'http://103.56.158.135:8000/api/register-teacher/' : 'http://103.56.158.135:8000/api/register-student/';
 
     axios.post(endpoint, formData, {
       headers: {
@@ -97,7 +97,7 @@ const AuthForm = () => {
 
   const handleLogin = (values) => {
     // Chọn endpoint dựa trên vai trò
-    const endpoint = isLecturer ? 'http://127.0.0.1:8000/api/login-teacher/' : 'http://127.0.0.1:8000/api/login/';
+    const endpoint = isLecturer ? 'http://103.56.158.135:8000/api/login-teacher/' : 'http://103.56.158.135:8000/api/login/';
 
     axios.post(endpoint, values)
       .then((response) => {
@@ -314,7 +314,7 @@ export default AuthForm;
 //       return;
 //     }
     
-//     axios.post('http://127.0.0.1:4000/api/register/', userStu)
+//     axios.post('http://103.56.158.135:4000/api/register/', userStu)
 //       .then((response) => {
 //         message.success('Đăng ký thành công!');
 //         console.log(response.data);
@@ -326,7 +326,7 @@ export default AuthForm;
 //   };
 
 //   const handleLogin = (values) => {
-//     axios.post('http://127.0.0.1:4000/api/login/', values)
+//     axios.post('http://103.56.158.135:4000/api/login/', values)
 //       .then((response) => {
 //         const { access, refresh } = response.data; // Lấy access và refresh token từ response
   

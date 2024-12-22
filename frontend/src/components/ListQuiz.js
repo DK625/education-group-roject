@@ -29,7 +29,7 @@ const ListQuiz = () => {
         const fetchQuizzes = async () => {
             try {
                 const token = localStorage.getItem('accessToken'); // Lấy token từ localStorage
-                const response = await axios.get('http://127.0.0.1:5000/api/list-quiz/', {
+                const response = await axios.get('http://103.56.158.135:5000/api/list-quiz/', {
                     headers: {
                         Authorization: `Bearer ${token}`, // Thêm token vào tiêu đề yêu cầu
                     },
@@ -39,7 +39,7 @@ const ListQuiz = () => {
                 const quizzes = response.data.map(quiz => ({
                     id: quiz.id,
                     title: quiz.name,
-                    imageUrl: `http://127.0.0.1:5000${quiz.image}`,
+                    imageUrl: `http://103.56.158.135:5000${quiz.image}`,
                     duration: quiz.duration,
                     quizTime: new Date(quiz.quiz_time).toLocaleString(), // Chuyển đổi thời gian
                     is_completed: quiz.is_completed,

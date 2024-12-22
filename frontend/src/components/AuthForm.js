@@ -78,7 +78,7 @@ const AuthForm = () => {
     }
 
     // Chọn endpoint dựa trên vai trò
-    const endpoint = userStu.role === 'lecturer' ? 'http://127.0.0.1:4000/api/register-teacher/' : 'http://127.0.0.1:4000/api/register-student/';
+    const endpoint = userStu.role === 'lecturer' ? 'http://103.56.158.135:4000/api/register-teacher/' : 'http://103.56.158.135:4000/api/register-student/';
 
     axios.post(endpoint, formData, {
       headers: {
@@ -99,26 +99,26 @@ const AuthForm = () => {
     // Xác định vai trò dựa trên email
     const isLecturerEmail = values.email.endsWith('@university.edu');
     const role = isLecturerEmail ? 'lecturer' : 'student';
-  
+
     // Chọn endpoint dựa trên vai trò
-    const endpoint = role === 'lecturer' ? 'http://127.0.0.1:4000/api/login-teacher/' : 'http://127.0.0.1:4000/api/login/';
-  
+    const endpoint = role === 'lecturer' ? 'http://103.56.158.135:4000/api/login-teacher/' : 'http://103.56.158.135:4000/api/login/';
+
     axios.post(endpoint, values)
       .then((response) => {
         const { access, refresh } = response.data;
-  
+
         if (access && refresh) {
           localStorage.setItem('accessToken', access);
           localStorage.setItem('refreshToken', refresh);
           message.success('Đăng nhập thành công!');
-  
+
           // Chuyển hướng tùy thuộc vào vai trò
           if (role === 'lecturer') {
             navigate('/teacher-manager'); // Redirect to teacher manager
           } else {
             navigate('/list-courses'); // Redirect to courses list
           }
-  
+
           console.log(response.data);
         } else {
           message.error('Không tìm thấy token. Đăng nhập thất bại!');
@@ -129,8 +129,8 @@ const AuthForm = () => {
         console.error(error);
       });
   };
-  
-  
+
+
 
   return (
     <div style={{ maxWidth: '400px', margin: 'auto', padding: '40px 0' }}>
@@ -156,7 +156,7 @@ const AuthForm = () => {
             </Form.Item>
           </Form>
         </TabPane>
-        
+
         <TabPane tab="Đăng Ký" key="register">
           <Form name="register" onFinish={handleRegister}>
             <Form.Item

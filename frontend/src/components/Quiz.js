@@ -44,7 +44,7 @@ const DetailQuiz = () => {
                 if (storedQuizDetails) {
                     setQuizDetails(JSON.parse(storedQuizDetails));
                 } else {
-                    const response = await axios.get(`http://127.0.0.1:5000/api/quiz/detail/${id}/`);
+                    const response = await axios.get(`http://103.56.158.135:5000/api/quiz/detail/${id}/`);
                     const updateQuizDetails = response.data.map((question) => ({
                         ...question,
                         options: question.options.map((option) => ({
@@ -136,7 +136,7 @@ const DetailQuiz = () => {
         }
 
         try {
-            const response = await axios.post(`http://127.0.0.1:5000/api/submit-quiz/${id}/`, {
+            const response = await axios.post(`http://103.56.158.135:5000/api/submit-quiz/${id}/`, {
                 // score: parseFloat(score) // Gửi điểm dạng số
                 score: calculatedScore // Gửi điểm dạng số
             }, {
@@ -162,7 +162,7 @@ const DetailQuiz = () => {
         }
 
         try {
-            const response = await axios.get(`http://127.0.0.1:5000/api/check-submit/${id}/`, {
+            const response = await axios.get(`http://103.56.158.135:5000/api/check-submit/${id}/`, {
                 headers: { Authorization: `Bearer ${token}` },
             });
 

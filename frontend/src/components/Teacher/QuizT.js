@@ -26,7 +26,7 @@ const Quiz = () => {
         return;
       }
 
-      const response = await axios.get('http://127.0.0.1:5000/api/get-all-quiz/', {
+      const response = await axios.get('http://103.56.158.135:5000/api/get-all-quiz/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -41,7 +41,7 @@ const Quiz = () => {
       const formattedQuizzes = response.data.map(quiz => ({
         id: quiz.id,
         name: quiz.name,
-        image: `http://127.0.0.1:5000${quiz.image}`,
+        image: `http://103.56.158.135:5000${quiz.image}`,
         duration: quiz.duration,
         quiz_time: new Date(quiz.quiz_time).toLocaleString(),
         course_name: quiz.course_name,
@@ -72,7 +72,7 @@ const Quiz = () => {
       }
 
       try {
-        const response = await axios.get('http://127.0.0.1:8000/api/all-courses/', {
+        const response = await axios.get('http://103.56.158.135:8000/api/all-courses/', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -114,7 +114,7 @@ const Quiz = () => {
     formData.append('quiz_time', quiz_time);
 
     try {
-      const response = await axios.post(`http://127.0.0.1:5000/api/quiz/${course_id}/`, formData, {
+      const response = await axios.post(`http://103.56.158.135:5000/api/quiz/${course_id}/`, formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data',

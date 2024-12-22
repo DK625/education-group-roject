@@ -35,7 +35,7 @@ const QuestionFormModal = ({ isVisible, onClose }) => {
       }
 
       try {
-        const response = await axios.get("http://127.0.0.1:8000/api/all-courses/", {
+        const response = await axios.get("http://103.56.158.135:8000/api/all-courses/", {
           headers: { Authorization: `Bearer ${token}` },
         });
         setCourses(response.data);
@@ -59,7 +59,7 @@ const QuestionFormModal = ({ isVisible, onClose }) => {
       }
 
       try {
-        const response = await axios.get(`http://127.0.0.1:5000/api/quiz/get-by-course/${selectedCourse}/`, {
+        const response = await axios.get(`http://103.56.158.135:5000/api/quiz/get-by-course/${selectedCourse}/`, {
           headers: { Authorization: `Bearer ${token}` },
         });
         console.log("Quizzes API Response:", response.data); // Kiểm tra dữ liệu trả về
@@ -101,7 +101,7 @@ const QuestionFormModal = ({ isVisible, onClose }) => {
 
       // Gửi yêu cầu POST tới API
       const questionResponse = await axios.post(
-        `http://127.0.0.1:5000/api/quiz/${selectedQuiz}/questions/`,
+        `http://103.56.158.135:5000/api/quiz/${selectedQuiz}/questions/`,
         questionPayload,
         { headers: { Authorization: `Bearer ${token}` } }
       );

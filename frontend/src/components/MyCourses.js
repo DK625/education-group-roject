@@ -10,8 +10,8 @@ import axios from 'axios';
 const { Content, Footer } = Layout;
 
 const MyCourses = () => {
-  const [courses, setCourses] = useState([]);  
-  const [courseIDs, setCourseIDs] = useState([]);  
+  const [courses, setCourses] = useState([]);
+  const [courseIDs, setCourseIDs] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(8);
   const token = localStorage.getItem('accessToken');
@@ -19,12 +19,12 @@ const MyCourses = () => {
   // Hàm lấy danh sách khóa học đã đăng ký
   const listCourseRegisted = useCallback(async () => {
     try {
-      const response = await axios.get('http://127.0.0.1:8000/api/list-register-course/', {
+      const response = await axios.get('http://103.56.158.135:8000/api/list-register-course/', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-     
+
       setCourseIDs(response.data.registered_course_ids);
     } catch (error) {
       console.error('Error fetching registered courses:', error);
@@ -36,12 +36,12 @@ const MyCourses = () => {
     try {
       const courseDetails = await Promise.all(
         courseIDs.map(async (id) => {
-          const response = await axios.get(`http://127.0.0.1:8000/api/courses/${id}/`);
+          const response = await axios.get(`http://103.56.158.135:8000/api/courses/${id}/`);
           return response.data;
         })
       );
-     
-      setCourses(courseDetails);  
+
+      setCourses(courseDetails);
     } catch (error) {
       console.error('Error fetching course details:', error);
     }
@@ -75,7 +75,7 @@ const MyCourses = () => {
 
       <Layout>
         <Navbar style={{ position: 'fixed', width: '100%', zIndex: 1 }} />
-        
+
         <Content className="content-course-layout">
           <div className="content-card-parent">
             {/* <Row className="filter-courses">
@@ -93,8 +93,8 @@ const MyCourses = () => {
                       price={course.price}
                       time={`Duration: ${course.duration}`}
                       teacher={course.instructor}
-                      participants={`Level: ${course.level}`} 
-                      imageUrl={course.image ? `http://127.0.0.1:8000${course.image}` : 'https://via.placeholder.com/300x150'}
+                      participants={`Level: ${course.level}`}
+                      imageUrl={course.image ? `http://103.56.158.135:8000${course.image}` : 'https://via.placeholder.com/300x150'}
                     />
                   </Col>
                 ))

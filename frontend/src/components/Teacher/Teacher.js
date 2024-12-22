@@ -24,7 +24,7 @@ const Teacher = () => {
     const [form] = Form.useForm();
     const [uploadedFile, setUploadedFile] = useState(null);
 
-    const baseUrl = 'http://127.0.0.1:4000';
+    const baseUrl = 'http://103.56.158.135:4000';
 
     const fetchProfileData = async () => {
         try {

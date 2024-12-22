@@ -24,7 +24,7 @@ const Profile = () => {
     const [form] = Form.useForm();
     const [uploadedFile, setUploadedFile] = useState(null);
 
-    const baseUrl = 'http://127.0.0.1:4000';
+    const baseUrl = 'http://103.56.158.135:4000';
 
     const fetchProfileData = async () => {
         try {
@@ -144,7 +144,7 @@ const Profile = () => {
         <Layout style={{ minHeight: '100vh' }}>
             <Sidebar style={{ position: 'fixed', height: '100vh' }} />
             <Layout>
-                <Navbar style={{ position: 'fixed', width: '100%', zIndex: 1 }}  profileData={profileData}  />
+                <Navbar style={{ position: 'fixed', width: '100%', zIndex: 1 }} profileData={profileData} />
 
                 <Content className="content-course-layout">
                     <Card

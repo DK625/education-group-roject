@@ -16,7 +16,7 @@ const HistoryReport = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isEditMode, setIsEditMode] = useState(false);
     const [currentReport, setCurrentReport] = useState(null);
-    
+
     const [form] = Form.useForm();
     const token = localStorage.getItem("accessToken");
 
@@ -27,7 +27,7 @@ const HistoryReport = () => {
 
     const fetchReports = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8080/api/report-all/', {
+            const response = await axios.get('http://103.56.158.135:8080/api/report-all/', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -41,7 +41,7 @@ const HistoryReport = () => {
 
     const fetchCourses = async () => {
         try {
-            const response = await axios.get('http://127.0.0.1:8000/api/courses/', {
+            const response = await axios.get('http://103.56.158.135:8000/api/courses/', {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -59,14 +59,14 @@ const HistoryReport = () => {
 
     const handleDelete = async (reportKey) => {
         console.log('Deleting report key:', reportKey); // Kiểm tra giá trị của reportKey
-    
+
         if (!reportKey) {
             message.error('ID báo cáo không hợp lệ');
             return;
         }
-    
+
         try {
-            await axios.delete(`http://127.0.0.1:8080/api/report/${reportKey}/`, {
+            await axios.delete(`http://103.56.158.135:8080/api/report/${reportKey}/`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 }
@@ -78,23 +78,23 @@ const HistoryReport = () => {
             console.error(error);
         }
     };
-    
+
     const showModal = (report, editMode = false) => {
         console.log('Current report:', report); // Kiểm tra giá trị của report
-    
+
         setCurrentReport(report);
         setIsEditMode(editMode);
-    
+
         form.setFieldsValue({
             day: report.day,
             todo: report.todo || '',
             issue: report.issue || '',
             plan: report.plan || ''
         });
-    
+
         setIsModalVisible(true);
     };
-    
+
 
     const handleCancel = () => {
         setIsModalVisible(false);
@@ -103,16 +103,16 @@ const HistoryReport = () => {
 
     const handleSave = async (values) => {
         console.log('Saving report key:', currentReport?.key); // Kiểm tra giá trị của currentReport?.key
-    
+
         if (!currentReport?.key) {
             message.error('ID báo cáo không hợp lệ');
             return;
         }
-    
+
         try {
             if (isEditMode) {
                 const response = await axios.put(
-                    `http://127.0.0.1:8080/api/report/${currentReport.key}/`,
+                    `http://103.56.158.135:8080/api/report/${currentReport.key}/`,
                     { ...values },
                     {
                         headers: {
@@ -120,7 +120,7 @@ const HistoryReport = () => {
                         }
                     }
                 );
-    
+
                 if (response.status === 200) {
                     message.success('Cập nhật báo cáo thành công');
                     fetchReports(); // Cập nhật danh sách báo cáo
@@ -134,7 +134,7 @@ const HistoryReport = () => {
             message.error('Cập nhật báo cáo thất bại. Vui lòng thử lại sau.');
         }
     };
-    
+
     // Group báo cáo theo khóa học
     const groupedReports = reports.reduce((acc, report) => {
         if (!acc[report.courses_id]) {
@@ -189,7 +189,7 @@ const HistoryReport = () => {
     return (
         <Layout style={{ minHeight: '100vh' }}>
             <Sidebar style={{ position: 'fixed', height: '100vh' }} />
-            <Layout> 
+            <Layout>
                 <Navbar style={{ position: 'fixed', width: '100%', zIndex: 1 }} />
 
                 <Content className="content-course-layout">

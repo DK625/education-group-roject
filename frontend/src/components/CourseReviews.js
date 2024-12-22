@@ -24,7 +24,7 @@ const CourseReviews = ({ courseId }) => {
 
       try {
         const response = await axios.get(
-          `http://127.0.0.1:8000/api/course/${courseId}/review/`,
+          `http://103.56.158.135:8000/api/course/${courseId}/review/`,
           {
             headers: {
               Authorization: `Bearer ${token}`, // Add the token to the headers
@@ -83,7 +83,7 @@ const CourseReviews = ({ courseId }) => {
     setLoading(true);
     try {
       const response = await axios.post(
-        `http://127.0.0.1:8000/api/course/${courseId}/review/`,
+        `http://103.56.158.135:8000/api/course/${courseId}/review/`,
         { rating: newRating, review: newReview }, // Send rating and review
         { headers: { Authorization: `Bearer ${token}` } }
       );
@@ -219,7 +219,7 @@ const CourseReviews = ({ courseId }) => {
                   time={`Duration: ${course.duration}`}
                   teacher={course.instructor}
                   participants={`Level: ${course.level}`} // Using level to show as participants
-                  imageUrl={course.image ? `http://127.0.0.1:8000${course.image}` : 'https://via.placeholder.com/300x150'}
+                  imageUrl={course.image ? `http://103.56.158.135:8000${course.image}` : 'https://via.placeholder.com/300x150'}
                 />
               </List.Item>
             )}

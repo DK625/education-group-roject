@@ -19,7 +19,7 @@ const Navbar = ({ courses, profileData }) => {
 
             if (token) {
                 try {
-                    const response = await fetch("http://127.0.0.1:4000/api/profile/", {
+                    const response = await fetch("http://103.56.158.135:4000/api/profile/", {
                         method: "GET",
                         headers: {
                             "Content-Type": "application/json",
@@ -128,7 +128,7 @@ const Navbar = ({ courses, profileData }) => {
                         />
                         <span className="username">{userData.username || "Guest"}</span>
 
-                        
+
                         <FontAwesomeIcon icon={faCaretDown} className="dropdown-icon" />
                     </div>
                 </Dropdown>
