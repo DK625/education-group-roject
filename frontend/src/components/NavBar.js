@@ -122,7 +122,7 @@ const Navbar = ({ courses, profileData }) => {
                 <Dropdown overlay={menu} trigger={['click']} className="profile-menu">
                     <div onClick={(e) => e.preventDefault()}>
                         <img
-                            src={`http://localhost:4000${userData.image}`} // Cập nhật đường dẫn ảnh
+                            src={`http://103.56.158.135:4000${userData.image}`} // Cập nhật đường dẫn ảnh
                             alt="Avatar"
                             className="profile-avatar"
                         />

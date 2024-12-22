@@ -115,14 +115,14 @@ const CourseReviews = ({ courseId }) => {
       let response;
       if (newRating) {
         response = await axios.post(
-          `http://localhost:8000/api/recommendation/`,
+          `http://103.56.158.135:8000/api/recommendation/`,
           { course_id: courseId, rating: newRating },
           { headers: { Authorization: `Bearer ${token}` } }
         );
       }
       else {
         response = await axios.post(
-          `http://localhost:8000/api/recommendation/`,
+          `http://103.56.158.135:8000/api/recommendation/`,
           { course_id: courseId, rating: currentUserRating },
           { headers: { Authorization: `Bearer ${token}` } }
         );
