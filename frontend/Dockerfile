@@ -3,7 +3,7 @@ FROM node:18-alpine AS deps
 WORKDIR /app
 
 # Install dependencies for node-gyp
-RUN apk add --no-cache python3 make g++
+RUN apk add --no-cache python3 build-base
 
 # Copy package files
 COPY package.json package-lock.json ./
@@ -40,6 +40,9 @@ RUN rm -rf ./*
 
 # Copy static files from builder
 COPY --from=builder /app/build .
+
+# Copy .env file if needed for runtime configuration
+COPY .env .
 
 # Expose port 80
 EXPOSE 80
