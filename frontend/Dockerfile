@@ -1,34 +1,20 @@
-# Stage 1: Dependencies
-FROM node:18-alpine AS deps
-WORKDIR /app
-
-## Install dependencies for node-gyp
-#RUN apk add --no-cache python3 build-base
-
-# Copy package files
-COPY package.json package-lock.json ./
-
-# Install dependencies with cache mounting
-RUN --mount=type=cache,target=/root/.npm \
-    npm ci
-
-# Stage 2: Builder
+# Stage 1: Builder
 FROM node:18-alpine AS builder
 WORKDIR /app
 
-# Copy dependencies from deps stage
-COPY --from=deps /app/node_modules ./node_modules
+# Copy package files first
+COPY package*.json ./
+
+# Install dependencies including dev dependencies
+RUN npm install
+
+# Copy the rest of the source code
 COPY . .
 
-# Set build arguments
-ARG REACT_APP_API_URL
-ENV REACT_APP_API_URL=$REACT_APP_API_URL
+# Build the app
+RUN npm run build
 
-# Build with cache mounting
-RUN --mount=type=cache,target=/root/.npm \
-    npm run build
-
-# Stage 3: Production
+# Stage 2: Production
 FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 
