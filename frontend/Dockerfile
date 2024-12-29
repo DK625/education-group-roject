@@ -1,40 +1,54 @@
-# Stage 1: Build React application
-FROM node:18-alpine as builder
-
-# Set working directory
+# Stage 1: Dependencies
+FROM node:18-alpine AS deps
 WORKDIR /app
+
+# Install dependencies for node-gyp
+RUN apk add --no-cache python3 make g++
 
 # Copy package files
 COPY package.json package-lock.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies with cache mounting
+RUN --mount=type=cache,target=/root/.npm \
+    npm ci
 
-# Copy source code
+# Stage 2: Builder
+FROM node:18-alpine AS builder
+WORKDIR /app
+
+# Copy dependencies from deps stage
+COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
-# Set environment variable
+# Set build arguments
 ARG REACT_APP_API_URL
 ENV REACT_APP_API_URL=$REACT_APP_API_URL
 
-# Build application
-RUN npm run build
+# Build with cache mounting
+RUN --mount=type=cache,target=/root/.npm \
+    npm run build
 
-# Stage 2: Serve with Nginx
+# Stage 3: Production
 FROM nginx:alpine
+WORKDIR /usr/share/nginx/html
 
 # Copy nginx configuration
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built files from builder stage
-COPY --from=builder /app/build /usr/share/nginx/html
+# Remove default nginx static files
+RUN rm -rf ./*
+
+# Copy static files from builder
+COPY --from=builder /app/build .
+
+# Copy .env file if needed for runtime configuration
+COPY .env .
 
 # Expose port 80
 EXPOSE 80
 
+# Use non-root user for better security
+USER nginx
+
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
-
-
-
-#docker build --build-arg REACT_APP_API_URL=103.56.158.135 -t frontend:v1 .
