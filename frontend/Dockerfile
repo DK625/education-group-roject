@@ -41,9 +41,6 @@ RUN rm -rf ./*
 # Copy static files from builder
 COPY --from=builder /app/build .
 
-# Copy .env file if needed for runtime configuration
-COPY .env .
-
 # Expose port 80
 EXPOSE 80
 
