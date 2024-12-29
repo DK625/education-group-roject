@@ -2,8 +2,8 @@
 FROM node:18-alpine AS deps
 WORKDIR /app
 
-# Install dependencies for node-gyp
-RUN apk add --no-cache python3 build-base
+## Install dependencies for node-gyp
+#RUN apk add --no-cache python3 build-base
 
 # Copy package files
 COPY package.json package-lock.json ./
