@@ -30,8 +30,5 @@ COPY --from=builder /app/build .
 # Expose port 80
 EXPOSE 80
 
-# Use non-root user for better security
-USER nginx
-
 # Start Nginx
 CMD ["nginx", "-g", "daemon off;"]
