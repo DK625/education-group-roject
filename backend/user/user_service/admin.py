@@ -24,7 +24,7 @@ class UserAdmin(admin.ModelAdmin):
                 # Gửi email thông báo phê duyệt đến email cá nhân của giảng viên
                 send_mail(
                     subject='Tài khoản giảng viên đã được phê duyệt',
-                    message=f"Xin chào {lecturer.username}, tài khoản của bạn đã được phê duyệt. Bạn có thể đăng nhập và sử dụng hệ thống.",
+                    message=f"Xin chào {lecturer.username}, tài khoản của bạn đã được phê duyệt. Bạn có thể đăng nhập và sử dụng hệ thống tại đường dẫn: {settings.SITE_URL}.",
                     from_email=settings.DEFAULT_FROM_EMAIL,  
                     recipient_list=[lecturer.personal_email],  # Gửi đến email cá nhân của giảng viên
                 )

@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
+SITE_URL = 'http://103.56.158.135:3000/'
 
 
 # Application definition

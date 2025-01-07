@@ -21,14 +21,20 @@ class StudentRegistrationView(APIView):
         email = request.data.get('email')
         phone_number = request.data.get('phone_number')
 
-        if User.objects.filter(username=username).exists():
-            return Response({'error': 'Tên đăng nhập đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
+        # if User.objects.filter(username=username).exists():
+        #     return Response({'error': 'Tên đăng nhập đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
 
+        errors = {}
+
+        # Kiểm tra xem email, số điện thoại, hoặc id_card đã tồn tại chưa
         if User.objects.filter(email=email).exists():
-            return Response({'error': 'Email đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
+            errors['email'] = 'Email đã tồn tại!'
 
         if User.objects.filter(phone_number=phone_number).exists():
-            return Response({'error': 'Số điện thoại đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
+            errors['phone_number'] = 'Số điện thoại đã tồn tại!'
+
+        if errors:
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Sử dụng serializer để validate và xử lý dữ liệu đầu vào
         serializer = StudentSerializer(data=request.data)
@@ -60,15 +66,25 @@ class LecturerRegistrationView(APIView):
         username = request.data.get('username')
         email = request.data.get('email')
         phone_number = request.data.get('phone_number')
+        id_card = request.data.get('id_card')
 
-        if User.objects.filter(username=username).exists():
-            return Response({'error': 'Tên đăng nhập đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
+        # if User.objects.filter(username=username).exists():
+        #     return Response({'error': 'Tên đăng nhập đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
+        errors = {}
 
+        # Kiểm tra xem email, số điện thoại, hoặc id_card đã tồn tại chưa
         if User.objects.filter(email=email).exists():
-            return Response({'error': 'Email đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
+            errors['email'] = 'Email đã tồn tại!'
 
         if User.objects.filter(phone_number=phone_number).exists():
-            return Response({'error': 'Số điện thoại đã tồn tại!'}, status=status.HTTP_400_BAD_REQUEST)
+            errors['phone_number'] = 'Số điện thoại đã tồn tại!'
+
+        if User.objects.filter(id_card=id_card).exists():
+            errors['id_card'] = 'Số thẻ/chứng minh nhân dân đã tồn tại!'
+
+        # Nếu có lỗi, trả về danh sách lỗi
+        if errors:
+            return Response(errors, status=status.HTTP_400_BAD_REQUEST)
 
         # Sử dụng serializer để validate và xử lý dữ liệu đầu vào
         serializer = LecturerRegistrationSerializer(data=request.data)
@@ -155,7 +171,7 @@ class ChangePasswordView(APIView):
             user.set_password(serializer.validated_data['new_password'])
             user.save()
             return Response({'message': 'Password changed successfully.'}, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+        return Response({'error': serializer.errors}, status=status.HTTP_400_BAD_REQUEST)
 
 
 class UpdateProfileView(APIView):

@@ -57,20 +57,20 @@ class LecturerRegistrationSerializer(serializers.ModelSerializer):
     def validate(self, data):
         # Kiểm tra mật khẩu
         if data['password'] != data['confirm_password']:
-            raise serializers.ValidationError("Passwords do not match.")
+            raise serializers.ValidationError("Mật khẩu không khớp nhau.")
         
         validate_password(data['password'])
 
         # Kiểm tra vai trò là giảng viên
-        if data.get('role') == 'lecturer':
-            if not data['email'].endswith('@university.edu'):
-                raise serializers.ValidationError("Email phải thuộc tổ chức của bạn (@university.edu).")
-            # Nếu có cung cấp chứng chỉ hoặc chứng minh thư thì kiểm tra, nếu không thì bỏ qua
-            if data.get('image_certificate') is None or data.get('id_card') is None:
-                pass  # Cho phép không cung cấp các trường này
-        else:
-            if 'image_certificate' in data or 'id_card' in data:
-                raise serializers.ValidationError("Chỉ giảng viên mới có thể cung cấp chứng chỉ và chứng minh thư.")
+        # if data.get('role') == 'lecturer':
+        #     if not data['email'].endswith('@university.edu'):
+        #         raise serializers.ValidationError("Email phải thuộc tổ chức của bạn (@university.edu).")
+        #     # Nếu có cung cấp chứng chỉ hoặc chứng minh thư thì kiểm tra, nếu không thì bỏ qua
+        #     if data.get('image_certificate') is None or data.get('id_card') is None:
+        #         pass  # Cho phép không cung cấp các trường này
+        # else:
+        #     if 'image_certificate' in data or 'id_card' in data:
+        #         raise serializers.ValidationError("Chỉ giảng viên mới có thể cung cấp chứng chỉ và chứng minh thư.")
 
         return data
 
@@ -105,16 +105,16 @@ class LoginStudentSerializer(serializers.Serializer):
         password = data.get('password')
 
         if not email or not password:
-            raise serializers.ValidationError("Both email and password are required.")
+            raise serializers.ValidationError("Cả email và password đều bắt buộc.")
 
         user = User.objects.filter(email=email).first()
         if user: 
             if user.check_password(password):
                 return user
             else:
-                raise serializers.ValidationError('Invalid password.')
+                raise serializers.ValidationError('Mật khẩu không chính xác')
         else:
-            raise serializers.ValidationError('User does not exist.')
+            raise serializers.ValidationError('Người dùng khng tồn tại.')
         
 
 class LoginLecturerSerializer(serializers.Serializer):
@@ -126,16 +126,16 @@ class LoginLecturerSerializer(serializers.Serializer):
         password = data.get('password')
 
         if not email or not password:
-            raise serializers.ValidationError("Both email and password are required.")
+            raise serializers.ValidationError("Cả email và password đều bắt buộc.")
 
         user = User.objects.filter(email=email, is_active=True, is_approved=True).first()
         if user: 
             if user.check_password(password):
                 return user
             else:
-                raise serializers.ValidationError('Invalid password.')
+                raise serializers.ValidationError('Mật khẩu không chính xác.')
         else:
-            raise serializers.ValidationError('User does not exist or is not approved.')
+            raise serializers.ValidationError('Tài khoản chưa được admin phê duyệt')
 
 
 class UserInfoSerializer(serializers.ModelSerializer):
@@ -154,7 +154,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 
         # Kiểm tra mật khẩu cũ
         if not user.check_password(value):
-            raise serializers.ValidationError('Incorrect old password.')
+            raise serializers.ValidationError('Mật khẩu cũ sai.')
 
         return value
 
@@ -164,7 +164,7 @@ class ChangePasswordSerializer(serializers.Serializer):
 
         # Kiểm tra mật khẩu mới và xác nhận mật khẩu mới
         if new_password != confirm_new_password:
-            raise serializers.ValidationError("New passwords do not match.")
+            raise serializers.ValidationError("Mật khẩu không khớp nhau.")
 
         # Xác thực mật khẩu mới
         try:
